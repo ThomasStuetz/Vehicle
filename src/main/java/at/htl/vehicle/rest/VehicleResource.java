@@ -18,7 +18,7 @@ public class VehicleResource {
     @GET
     public List<Vehicle> findAll() {
         List<Vehicle> all = new ArrayList<>();
-        all.add(new Vehicle("Opel","Kadett"));
+        all.add(find(42));
         return all;
     }
 
