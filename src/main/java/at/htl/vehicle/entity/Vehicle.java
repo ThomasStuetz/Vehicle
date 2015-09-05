@@ -1,6 +1,8 @@
 package at.htl.vehicle.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -11,9 +13,15 @@ public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
+    @Size(min = 1, max = 256)
     private String brand;
     private String type;
     private boolean annualVignetteValid;
+
+    @Version
+    private long version;
 
     public Vehicle() {
     }

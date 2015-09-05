@@ -6,6 +6,7 @@ import at.htl.vehicle.entity.Vehicle;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.json.JsonObject;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -34,7 +35,7 @@ public class VehiclesResource {
 
 
     @POST
-    public Response save(Vehicle vehicle, @Context UriInfo info) {
+    public Response save(@Valid Vehicle vehicle, @Context UriInfo info) {
         Vehicle saved = this.vehicleFacade.save(vehicle);
         Long id = saved.getId();
         URI uri = info.getAbsolutePathBuilder().path("/" + id).build();
