@@ -1,5 +1,8 @@
 package at.htl.vehicle.entity;
 
+import at.htl.vehicle.constraints.CrossCheck;
+import at.htl.vehicle.constraints.ValidEntity;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -8,7 +11,8 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @NamedQuery(name = "Vehicle.findAll", query = "SELECT v FROM Vehicle v")
 @XmlRootElement
-public class Vehicle {
+@CrossCheck
+public class Vehicle implements ValidEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -63,6 +67,17 @@ public class Vehicle {
 
     public void setAnnualVignetteValid(boolean annualVignetteValid) {
         this.annualVignetteValid = annualVignetteValid;
+    }
+
+    @Override
+    public boolean isValid() {
+        if (brand == null) {
+            return true;
+        }
+        if (this.brand.length() > 10) {
+            return this.type.length() > 10;
+        }
+        return true;
     }
     //endregion
 }
